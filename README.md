@@ -305,10 +305,7 @@ https://github.com/Code-Maven/wis-python-course-2026-03
 ```
 
 # Original README 
-ORIGINAL APPROVED README
-Source: original approved README.txt
 
-README
 Scientific Literature Manager
 Project Overview
 I receive a large number of scientific papers through Google Scholar alerts. These alerts are based on keywords related to my research interests, including origin-of-life research, astrobiology, and such. I also receive citation alerts related to publications by Prof. Doron Lancet.
