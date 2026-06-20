@@ -1,0 +1,1 @@
+"""Scientific literature manager package."""

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Processing complete</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='web_app.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Processing complete</h1>
+        <div class="muted">{{ message }}</div>
+    </header>
+    <main>
+        <section class="panel">
+            <h2>Results</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Source</th>
+                            <th>Result</th>
+                            <th>Destination</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in records %}
+                            <tr>
+                                <td>{{ record.source_path.name }}</td>
+                                <td>{{ record.action }}</td>
+                                <td class="path-preview">{{ record.destination_path }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="actions">
+                <a class="button" href="{{ url_for('index') }}">Start over</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
