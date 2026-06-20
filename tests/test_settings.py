@@ -1,3 +1,9 @@
+"""Tests for loading configuration settings.
+
+This test checks that a custom JSON config can change selected settings while
+keeping the default settings that were not replaced.
+"""
+
 import json
 
 from literature_manager.settings import load_config

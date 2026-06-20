@@ -1,3 +1,9 @@
+"""Tests for filename cleaning, journal abbreviations, and new PDF names.
+
+These tests check the small text helpers that create readable and valid
+filenames for organized papers.
+"""
+
 from pathlib import Path
 
 from literature_manager.core.models import PaperMetadata

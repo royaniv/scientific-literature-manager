@@ -1,3 +1,9 @@
+"""Tests for PDF file collection and planned file operations.
+
+These tests check that the program finds PDF files, avoids duplicate output
+names, copies files correctly, and refuses unsafe duplicate destinations.
+"""
+
 from pathlib import Path
 
 import pytest

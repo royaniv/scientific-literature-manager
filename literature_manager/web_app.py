@@ -1,4 +1,3 @@
-import argparse
 import io
 import os
 import shutil
@@ -399,30 +398,11 @@ def remove_job_dir(path):
     shutil.rmtree(resolved_path, ignore_errors=True)
 
 
-def parse_args(argv=None):
-    parser = argparse.ArgumentParser(description="Run the web app.")
-    parser.add_argument("--host", default=os.environ.get("SLM_HOST", "127.0.0.1"))
-    parser.add_argument(
-        "--port",
-        type=int,
-        default=int(os.environ.get("PORT", os.environ.get("SLM_PORT", "5000"))),
-    )
-    parser.add_argument(
-        "--check",
-        action="store_true",
-        help="Create the Flask app and exit without starting the server.",
-    )
-    return parser.parse_args(argv)
-
-
-def main(argv=None):
-    args = parse_args(argv)
+def main():
     app = create_app()
-    if args.check:
-        print("Web app check passed.")
-        return
-
-    app.run(host=args.host, port=args.port, debug=False)
+    host = os.environ.get("SLM_HOST", "127.0.0.1")
+    port = int(os.environ.get("PORT", os.environ.get("SLM_PORT", "5000")))
+    app.run(host=host, port=port, debug=False)
 
 
 app = create_app()

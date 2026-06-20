@@ -64,17 +64,17 @@ Or run it from the terminal:
 
 The desktop app lets the user add PDF files, add a folder, choose an output folder, preview changes, edit suggested filenames, and then apply the changes.
 
-### Optional Command-Line Mode
+### Simple Terminal Mode
 
 The program can also run from the terminal. This is useful for testing the file-renaming logic without opening the desktop app.
 
-For example, this previews the planned changes without moving or renaming files:
+Run:
 
 ```powershell
-.\.venv\Scripts\python.exe -m literature_manager.rename_papers --cli "C:\path\to\pdfs" --dry-run
+.\.venv\Scripts\python.exe -m literature_manager.rename_papers
 ```
 
-Remove `--dry-run` to apply the changes. Add `--copy` to copy files instead of moving them, or `--recursive` to include PDFs inside subfolders.
+The script asks for the input folder, output folder, and whether to preview, copy, or include subfolders.
 
 ### Local Web App
 
@@ -189,7 +189,7 @@ By default, the GUI copies files so the original PDFs are not changed. The user 
 ## Code Layout
 
 - `sci_lit_man.py`: main desktop launcher
-- `literature_manager/rename_papers.py`: command-line interface
+- `literature_manager/rename_papers.py`: simple terminal version
 - `literature_manager/gui.py`: desktop app behavior
 - `literature_manager/gui_layout.py`: desktop window layout
 - `literature_manager/gui_dialogs.py`: desktop edit dialogs
@@ -268,11 +268,7 @@ Example:
 }
 ```
 
-Run with a custom config:
-
-```powershell
-.\.venv\Scripts\python.exe -m literature_manager.rename_papers --cli "C:\path\to\pdfs" --config my_config.json --dry-run
-```
+The desktop and web app currently use the default settings from `settings.py`. The JSON configuration support is available in the code for future customization.
 
 ## Use Of AI
 

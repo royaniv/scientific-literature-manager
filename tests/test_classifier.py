@@ -1,3 +1,9 @@
+"""Tests for paper classification.
+
+These tests check that category keywords are found correctly in paper titles or
+text, and that the first matching category is selected.
+"""
+
 from pathlib import Path
 
 from literature_manager.core.classifier import classify_paper, keyword_matches

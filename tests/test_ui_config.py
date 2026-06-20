@@ -1,3 +1,9 @@
+"""Tests for shared GUI and web-form configuration helpers.
+
+These tests check the small helper functions that turn text from the interface
+into categories, keywords, prefixes, and positive numbers.
+"""
+
 from literature_manager.ui_config import (
     category_prefix_lines,
     default_sort_rules,
