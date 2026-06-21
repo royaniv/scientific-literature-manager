@@ -3,6 +3,11 @@ web.py — Flask web interface for Paper Organizer.
 
 Server-Sent Events stream scan/apply progress.
 Plan is stored as a JSON temp file (plan token kept in cookie).
+
+Can be run directly:
+    python web.py          # starts on http://127.0.0.1:5001
+or via the project root:
+    python main.py --web
 """
 from __future__ import annotations
 
@@ -14,6 +19,13 @@ import threading
 import time
 import uuid
 from pathlib import Path
+
+# Allow running this file directly (python paper_organizer/web.py) by
+# ensuring the claude_code_scientific_literature_manager/ directory is on
+# sys.path, regardless of the current working directory.
+_pkg_root = Path(__file__).resolve().parent.parent
+if str(_pkg_root) not in sys.path:
+    sys.path.insert(0, str(_pkg_root))
 
 from flask import (
     Blueprint, Flask, Response, jsonify, render_template,
@@ -208,3 +220,11 @@ def create_app(secret_key: str | None = None) -> Flask:
     app.secret_key = secret_key or os.urandom(24)
     app.register_blueprint(bp)
     return app
+
+
+if __name__ == "__main__":
+    import webbrowser
+    url = "http://127.0.0.1:5001"
+    threading.Timer(0.8, lambda: webbrowser.open(url)).start()
+    print(f"Paper Organizer web UI  {url}  (Ctrl+C to stop)")
+    create_app().run(host="127.0.0.1", port=5001, debug=False, use_reloader=False)
