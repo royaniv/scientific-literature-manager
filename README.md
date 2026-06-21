@@ -27,6 +27,9 @@ For each PDF, the program can:
 
 ## Main Parts Of The Project
 
+AI was used to create the program and tests, mainly Codex but some Copilot and Claude code as helpers. 
+I attempted to keep things simple so I can understand the content better, but reach the desired result. So there is a tradoff to also avoid long and elaborate code. 
+
 ### Main Desktop App
 
 These are the files for the main program:
