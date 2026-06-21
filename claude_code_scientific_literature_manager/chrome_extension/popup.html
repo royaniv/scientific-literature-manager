@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Save Article PDF</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      width: 380px;
+      margin: 0;
+      padding: 14px;
+      color: #1f2933;
+      background: #f5f7f8;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+    .panel {
+      padding: 12px;
+      margin-bottom: 10px;
+      background: #fff;
+      border: 1px solid #d7dde3;
+      border-radius: 8px;
+    }
+    .field {
+      display: grid;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    label {
+      color: #64707d;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-width: 0;
+      padding: 7px 8px;
+      color: #1f2933;
+      border: 1px solid #cfd7de;
+      border-radius: 6px;
+      font: inherit;
+    }
+    textarea {
+      min-height: 58px;
+      resize: vertical;
+    }
+    .check {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .check input {
+      width: auto;
+    }
+    button {
+      width: 100%;
+      padding: 9px 12px;
+      color: #fff;
+      background: #2f6f73;
+      border: 0;
+      border-radius: 6px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: #9aa7af;
+      cursor: not-allowed;
+    }
+    .muted {
+      color: #64707d;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    .status {
+      min-height: 18px;
+      margin-top: 8px;
+      color: #64707d;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Save Article PDF</h1>
+
+  <section class="panel">
+    <div class="field">
+      <label for="pdfUrl">PDF URL</label>
+      <input id="pdfUrl" placeholder="Detected PDF URL">
+    </div>
+    <div class="field">
+      <label for="title">Title</label>
+      <textarea id="title"></textarea>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="author">Last author</label>
+        <input id="author">
+      </div>
+      <div class="field">
+        <label for="journal">Journal</label>
+        <input id="journal">
+      </div>
+      <div class="field">
+        <label for="year">Year</label>
+        <input id="year">
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="row">
+      <div class="field">
+        <label for="prefix">Prefix</label>
+        <input id="prefix">
+      </div>
+      <div class="field">
+        <label for="nextNumber">Number</label>
+        <input id="nextNumber" type="number" min="1">
+      </div>
+      <div class="field">
+        <label for="digits">Digits</label>
+        <input id="digits" type="number" min="1" max="8">
+      </div>
+    </div>
+    <div class="field">
+      <label for="category">Detected category</label>
+      <select id="category"></select>
+    </div>
+    <div class="check">
+      <input id="useCategoryPrefix" type="checkbox">
+      <label for="useCategoryPrefix">Use category prefix instead of global prefix</label>
+    </div>
+    <div class="field">
+      <label for="downloadSubfolder">Downloads subfolder</label>
+      <input id="downloadSubfolder" placeholder="organized_papers">
+      <div class="muted">Chrome extensions can save automatically only inside the browser Downloads folder. Use a subfolder name such as organized_papers.</div>
+    </div>
+    <div class="check">
+      <input id="saveAs" type="checkbox">
+      <label for="saveAs">Show Save As dialog</label>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="field">
+      <label for="filename">Filename preview</label>
+      <textarea id="filename"></textarea>
+    </div>
+    <button id="downloadButton">Download with this name</button>
+    <div id="status" class="status"></div>
+  </section>
+
+  <script src="popup.js"></script>
+</body>
+</html>

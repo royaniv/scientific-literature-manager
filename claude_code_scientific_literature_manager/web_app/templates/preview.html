@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Preview filenames</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='web_app.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Review output</h1>
+        <div class="muted">{{ review_message }}</div>
+    </header>
+    <main>
+        {% if error %}
+            <div class="message error">{{ error }}</div>
+        {% endif %}
+        <form method="post" action="{{ url_for('apply_job', job_id=job_id) }}">
+            <section class="panel">
+                <h2>Preview</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Source</th>
+                                <th>Category</th>
+                                <th>Matched keywords</th>
+                                <th>Filename</th>
+                                <th>{{ output_heading }}</th>
+                                <th>Detected title</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in records %}
+                                <tr>
+                                    <td>{{ record.source_path.name }}</td>
+                                    <td>
+                                        <select name="category_{{ loop.index0 }}">
+                                            {% for category in categories %}
+                                                <option value="{{ category }}" {% if category == record.category %}selected{% endif %}>{{ category }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                    <td>{{ record.matched_keywords|join(", ") }}</td>
+                                    <td>
+                                        <input
+                                            name="filename_{{ loop.index0 }}"
+                                            value="{{ record.destination_path.name }}"
+                                            {% if not rename_files %}readonly{% endif %}
+                                        >
+                                    </td>
+                                    <td class="path-preview">{{ record.preview_output }}</td>
+                                    <td>{{ record.title }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="actions">
+                    <button type="submit">{{ submit_label }}</button>
+                    <a class="button secondary" href="{{ url_for('index') }}">Start over</a>
+                </div>
+            </section>
+        </form>
+    </main>
+</body>
+</html>
