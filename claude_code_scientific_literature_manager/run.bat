@@ -1,3 +1,3 @@
 @echo off
 cd /d "%~dp0"
-python main.py
+"%~dp0..\.venv\Scripts\python.exe" main.py
