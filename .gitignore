@@ -18,11 +18,11 @@ output/
 web_app.log
 web_app.err
 
-# Private local notes
-PRIVATE_FILE_GUIDE.md
-private_guides/
-PRIVATE_EXPLAINED_DUPLICATES/
-PRIVATE_EXE_BUILD/
+# Local notes and archived experiments
+*_FILE_GUIDE.md
+*_guides/
+*_EXPLAINED_DUPLICATES/
+*_EXE_BUILD/
 
-# Local literature files are usually large and private.
+# Local literature files are usually large and should stay out of Git.
 *.pdf

@@ -10,10 +10,10 @@ echo http://127.0.0.1:5000
 echo.
 
 if exist ".venv\Scripts\python.exe" (
-    ".venv\Scripts\python.exe" -m literature_manager.web_app
+    ".venv\Scripts\python.exe" -m web_app.app
 ) else (
-    py -m literature_manager.web_app
-    if errorlevel 1 python -m literature_manager.web_app
+    py -m web_app.app
+    if errorlevel 1 python -m web_app.app
 )
 
 if errorlevel 1 (

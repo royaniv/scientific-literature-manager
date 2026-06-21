@@ -4,10 +4,10 @@ setlocal
 cd /d "%~dp0"
 
 if exist ".venv\Scripts\python.exe" (
-    ".venv\Scripts\python.exe" "sci_lit_man.py"
+    ".venv\Scripts\python.exe" "MAIN_sci_lit_man.py"
 ) else (
-    py "sci_lit_man.py"
-    if errorlevel 1 python "sci_lit_man.py"
+    py "MAIN_sci_lit_man.py"
+    if errorlevel 1 python "MAIN_sci_lit_man.py"
 )
 
 if errorlevel 1 (
