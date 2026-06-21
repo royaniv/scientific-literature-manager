@@ -1,1 +1,0 @@
-"""slm — Scientific Literature Manager."""
