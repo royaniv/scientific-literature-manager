@@ -125,8 +125,10 @@ tr.high td { color: var(--high); }
 
 .result-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: .4rem; }
 .result-list li { font-size: .9rem; }
-.ok   { color: var(--ok);  font-weight: 700; margin-right: .5rem; }
-.fail { color: var(--danger); font-weight: 700; margin-right: .5rem; }
+.ok      { color: var(--ok);  font-weight: 700; margin-right: .5rem; }
+.ok-head { color: var(--ok); font-size: 1rem; margin-top: 1.25rem; }
+.fail     { color: var(--danger); font-weight: 700; margin-right: .5rem; }
+.fail-head { color: var(--danger); font-size: 1rem; margin-top: 1.25rem; }
 
 footer {
   text-align: center;

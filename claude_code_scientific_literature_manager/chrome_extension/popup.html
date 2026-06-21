@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SLM — Save Article PDF</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      width: 390px;
+      margin: 0;
+      padding: 14px;
+      background: #f5f7fa;
+      color: #1e293b;
+      font: 14px/1.4 "Segoe UI", system-ui, sans-serif;
+    }
+    h1 { margin: 0 0 12px; font-size: 17px; color: #2563eb; }
+    .card {
+      background: #fff;
+      border: 1px solid #dde1e7;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+    .field { margin-bottom: 9px; }
+    .field:last-child { margin-bottom: 0; }
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 6px 8px;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      font: inherit;
+      color: #1e293b;
+    }
+    textarea { min-height: 52px; resize: vertical; }
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid #2563eb;
+      border-color: #2563eb;
+    }
+    .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .check {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; color: #475569; margin-top: 6px;
+    }
+    .check input { width: auto; }
+    .hint { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+    button {
+      width: 100%;
+      padding: 9px;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font: 700 14px/1 inherit;
+      cursor: pointer;
+    }
+    button:hover { background: #1d4ed8; }
+    button:disabled { background: #94a3b8; cursor: not-allowed; }
+    #status { min-height: 16px; font-size: 12px; color: #64748b; margin-top: 7px; }
+    #filenamePreview {
+      font-family: monospace;
+      font-size: 12px;
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #334155;
+    }
+  </style>
+</head>
+<body>
+  <h1>SLM — Save Article PDF</h1>
+
+  <div class="card">
+    <div class="field">
+      <label for="pdfUrl">PDF URL</label>
+      <input id="pdfUrl" type="url" placeholder="Detected automatically">
+    </div>
+    <div class="field">
+      <label for="title">Title</label>
+      <textarea id="title"></textarea>
+    </div>
+    <div class="row-3">
+      <div class="field">
+        <label for="author">Last author</label>
+        <input id="author">
+      </div>
+      <div class="field">
+        <label for="journal">Journal</label>
+        <input id="journal">
+      </div>
+      <div class="field">
+        <label for="year">Year</label>
+        <input id="year" maxlength="4">
+      </div>
+    </div>
+    <div class="field">
+      <label for="category">Category</label>
+      <select id="category"></select>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row-3">
+      <div class="field">
+        <label for="prefix">Prefix</label>
+        <input id="prefix">
+      </div>
+      <div class="field">
+        <label for="nextNumber">Number</label>
+        <input id="nextNumber" type="number" min="1">
+      </div>
+      <div class="field">
+        <label for="digits">Digits</label>
+        <input id="digits" type="number" min="1" max="8">
+      </div>
+    </div>
+    <div class="check">
+      <input id="perCategory" type="checkbox">
+      <label for="perCategory">Use category prefix</label>
+    </div>
+    <div class="field" style="margin-top:10px;">
+      <label for="subfolder">Downloads subfolder</label>
+      <input id="subfolder" placeholder="organized_papers">
+      <p class="hint">Chrome can only save inside the Downloads folder. Use a subfolder name.</p>
+    </div>
+    <div class="check">
+      <input id="saveAs" type="checkbox">
+      <label for="saveAs">Show Save As dialog</label>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="field">
+      <label for="filenamePreview">Filename preview</label>
+      <textarea id="filenamePreview" readonly></textarea>
+    </div>
+    <button id="downloadBtn">Download with this name</button>
+    <div id="status"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "SLM — Save Article PDF",
+  "description": "Download the current article or PDF with a clean SLM-formatted filename.",
+  "version": "1.0.0",
+  "permissions": [
+    "activeTab",
+    "downloads",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Save article PDF (SLM)"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
