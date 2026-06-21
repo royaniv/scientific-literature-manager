@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Rename &amp; Sort PDFs</h1>
+
+{% if error %}
+<p class="alert">{{ error }}</p>
+{% endif %}
+
+<form method="post" class="form-card">
+  <div class="field">
+    <label for="source_dir">Source folder (where your PDFs are)</label>
+    <input id="source_dir" name="source_dir" type="text"
+           placeholder="C:\Papers\Inbox" required>
+  </div>
+
+  <div class="field">
+    <label for="output_dir">Output folder <small>(leave blank to use source)</small></label>
+    <input id="output_dir" name="output_dir" type="text"
+           placeholder="C:\Papers\Sorted">
+  </div>
+
+  <div class="field-row">
+    <label>
+      <input type="checkbox" name="sort"> Sort into category subfolders
+    </label>
+    <label>
+      <input type="checkbox" name="recursive"> Include subfolders
+    </label>
+  </div>
+
+  <button type="submit" class="btn-primary">Preview</button>
+</form>
+{% endblock %}

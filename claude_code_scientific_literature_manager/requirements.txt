@@ -1,5 +1,4 @@
-pypdf
-requests
-tkinterdnd2
-Flask
-pytest
+pypdf>=4.0
+requests>=2.31
+flask>=3.0
+pytest>=8.0

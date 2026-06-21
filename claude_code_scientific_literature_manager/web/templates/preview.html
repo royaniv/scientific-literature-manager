@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Preview{% endblock %}
+
+{% block content %}
+<h1>Preview — {{ papers|length }} file(s)</h1>
+<p class="muted">No files have been changed yet. Review the plan below, then choose an action.</p>
+
+{% if papers %}
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Source filename</th>
+        <th>Category</th>
+        <th>Priority</th>
+        <th>New name</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in papers %}
+      <tr class="{{ 'high' if p.is_high_priority else '' }}">
+        <td>{{ p.source.name }}</td>
+        <td>{{ p.category }}</td>
+        <td>{{ p.priority }}</td>
+        <td>{{ p.new_name or '—' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<form method="post" action="{{ url_for('slm.apply_view') }}" class="action-bar">
+  <button type="submit" name="action" value="copy" class="btn-primary">Copy files</button>
+  <button type="submit" name="action" value="move" class="btn-danger">Move files</button>
+  <a href="{{ url_for('slm.index') }}" class="btn-secondary">Back</a>
+</form>
+{% else %}
+<p class="alert">No PDFs were found in the selected folder.</p>
+<a href="{{ url_for('slm.index') }}" class="btn-secondary">Back</a>
+{% endif %}
+{% endblock %}

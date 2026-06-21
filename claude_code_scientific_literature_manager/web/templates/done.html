@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Done{% endblock %}
+
+{% block content %}
+<h1>Results</h1>
+
+{% if done %}
+<h2>&#10003; {{ done|length }} file(s) succeeded</h2>
+<ul class="result-list">
+  {% for p in done %}
+  <li><span class="ok">OK</span> {{ p.destination.name }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if failed %}
+<h2>&#10007; {{ failed|length }} file(s) failed</h2>
+<ul class="result-list">
+  {% for p in failed %}
+  <li><span class="fail">FAIL</span> {{ p.source.name }} &mdash; {{ p.error }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<a href="{{ url_for('slm.index') }}" class="btn-primary">Start over</a>
+{% endblock %}
