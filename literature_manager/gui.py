@@ -2,6 +2,7 @@ import subprocess
 import sys
 import threading
 import tkinter as tk
+from ctypes import windll
 from pathlib import Path
 from tkinter import filedialog, messagebox
 
@@ -32,12 +33,54 @@ except Exception:
     TkinterDnD = None
 
 
+DEFAULT_TK_SCALING = 96 / 72
+
+
+def enable_high_dpi_awareness():
+    if sys.platform != "win32":
+        return
+
+    awareness_attempts = [
+        lambda: windll.user32.SetProcessDpiAwarenessContext(-4),
+        lambda: windll.shcore.SetProcessDpiAwareness(2),
+        lambda: windll.user32.SetProcessDPIAware(),
+    ]
+    for attempt in awareness_attempts:
+        try:
+            result = attempt()
+        except (AttributeError, OSError, ValueError):
+            continue
+        if result == 0:
+            continue
+        return
+
+
+def configure_tk_scaling(root):
+    try:
+        scaling = root.winfo_fpixels("1i") / 72
+        root.tk.call("tk", "scaling", scaling)
+    except tk.TclError:
+        return 1.0
+    return max(1.0, scaling / DEFAULT_TK_SCALING)
+
+
+def scaled_size(value, scale):
+    return int(round(value * scale))
+
+
 class LiteratureManagerApp:
     def __init__(self, root, initial_paths=None):
         self.root = root
+        self.display_scale = configure_tk_scaling(self.root)
         self.root.title("Scientific Literature Manager")
-        self.root.geometry("1120x720")
-        self.root.minsize(900, 600)
+        self.root.geometry(
+            f"{scaled_size(1120, self.display_scale)}x"
+            f"{scaled_size(720, self.display_scale)}",
+        )
+        self.root.minsize(
+            scaled_size(900, self.display_scale),
+            scaled_size(600, self.display_scale),
+        )
 
         self.base_config = load_config(None)
         self.selected_paths = []
@@ -583,6 +626,7 @@ class LiteratureManagerApp:
 
 
 def create_root():
+    enable_high_dpi_awareness()
     if TkinterDnD is not None:
         try:
             return TkinterDnD.Tk()
