@@ -1,5 +1,9 @@
 # Scientific Literature Manager
 
+Scientific Literature Manager is a Python project GUI for organizing downloaded scientific PDF papers. It was built as a final project for the Weizmann Institute Basic Programming Skills (Python) course.
+
+The program helps with papers that are downloaded with unclear names such as `download.pdf`, `fulltext.pdf`, or `paper.pdf`. It can scan PDF files, read available metadata, suggest clearer filenames, classify papers by keywords, and copy or move them into an organized output folder.
+
 **Main program file:** `MAIN_sci_lit_man.py`
 
 The easiest way to run the project is to double-click:
@@ -7,10 +11,6 @@ The easiest way to run the project is to double-click:
 ```text
 START_HERE_RUN_APP.bat
 ```
-
-Scientific Literature Manager is a Python project for organizing downloaded scientific PDF papers. It was built as a final project for the Weizmann Institute Basic Programming Skills (Python) course.
-
-The program helps with papers that are downloaded with unclear names such as `download.pdf`, `fulltext.pdf`, or `paper.pdf`. It can scan PDF files, read available metadata, suggest clearer filenames, classify papers by keywords, and copy or move them into an organized output folder.
 
 ## What The Project Does
 
@@ -24,7 +24,6 @@ For each PDF, the program can:
 6. Copy or move the paper into an organized folder.
 7. Show a preview before applying changes.
 
-The classification system is rule-based. It does not use machine learning.
 
 ## Main Parts Of The Project
 

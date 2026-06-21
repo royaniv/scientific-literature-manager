@@ -27,7 +27,11 @@
                         {% for record in records %}
                             <tr>
                                 <td>{{ record.source_path.name }}</td>
-                                <td>{{ record.action }}</td>
+                                <td>
+                                    <span class="status-chip status-{{ record.action }}">
+                                        {{ record.action }}
+                                    </span>
+                                </td>
                                 <td class="path-preview">{{ record.destination_path }}</td>
                             </tr>
                         {% endfor %}

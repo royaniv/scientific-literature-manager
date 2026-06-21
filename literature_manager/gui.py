@@ -13,7 +13,7 @@ from literature_manager.core import (
     process_pdf_paths,
 )
 from literature_manager.gui_dialogs import show_edit_record_dialog
-from literature_manager.gui_layout import build_main_layout
+from literature_manager.gui_layout import build_main_layout, category_tag_name
 from literature_manager.settings import load_config
 from literature_manager.ui_config import (
     category_names,
@@ -405,7 +405,12 @@ class LiteratureManagerApp:
             self.preview_records = records
 
         for record in records:
-            item = self.results.insert("", tk.END, values=self.result_values(record))
+            item = self.results.insert(
+                "",
+                tk.END,
+                values=self.result_values(record),
+                tags=self.result_tags(record),
+            )
             self.result_records[item] = record
 
         self.set_busy(False)
@@ -424,8 +429,17 @@ class LiteratureManagerApp:
             self.result_text(record.action),
         )
 
+    def result_tags(self, record):
+        tags = [category_tag_name(record.category)]
+        if getattr(record, "priority", "") == "high":
+            tags.append("priority_high")
+        if record.action in {"copied", "moved"}:
+            tags.append(f"action_{record.action}")
+        return tuple(tags)
+
     def refresh_result_row(self, item, record):
         self.results.item(item, values=self.result_values(record))
+        self.results.item(item, tags=self.result_tags(record))
 
     def selected_result_item(self):
         selection = self.results.selection()

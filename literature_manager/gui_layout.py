@@ -4,11 +4,156 @@ from tkinter import ttk
 from literature_manager.ui_config import category_names, category_prefix_lines
 
 
+CATEGORY_COLORS = {
+    "Micelles": "#2563eb",
+    "Chiral": "#7c3aed",
+    "Soup": "#ea580c",
+    "Astro": "#0369a1",
+    "Light": "#b45309",
+    "OrganBactr": "#15803d",
+    "General": "#64748b",
+}
+
+APP_COLORS = {
+    "bg": "#f6f9fb",
+    "surface": "#ffffff",
+    "line": "#d8e2ea",
+    "text": "#1e293b",
+    "muted": "#64748b",
+    "header": "#15324a",
+    "header_soft": "#244a63",
+    "header_text": "#e6f2f7",
+    "accent": "#2563eb",
+    "accent_dark": "#1d4ed8",
+    "success": "#15803d",
+    "warning": "#b45309",
+    "danger": "#dc2626",
+}
+
+
+def category_tag_name(category):
+    safe = "".join(ch if ch.isalnum() else "_" for ch in str(category or "General"))
+    return f"category_{safe}"
+
+
+def configure_app_theme(root):
+    root.configure(bg=APP_COLORS["bg"])
+    style = ttk.Style(root)
+    try:
+        style.theme_use("clam")
+    except tk.TclError:
+        pass
+
+    style.configure(".", font=("Segoe UI", 10))
+    style.configure("TFrame", background=APP_COLORS["bg"])
+    style.configure("Toolbar.TFrame", background=APP_COLORS["header"])
+    style.configure("TLabel", background=APP_COLORS["bg"], foreground=APP_COLORS["text"])
+    style.configure(
+        "Status.TLabel",
+        background=APP_COLORS["surface"],
+        foreground=APP_COLORS["muted"],
+        padding=(12, 7),
+    )
+    style.configure(
+        "TLabelframe",
+        background=APP_COLORS["surface"],
+        bordercolor=APP_COLORS["line"],
+        lightcolor=APP_COLORS["line"],
+        darkcolor=APP_COLORS["line"],
+    )
+    style.configure(
+        "TLabelframe.Label",
+        background=APP_COLORS["surface"],
+        foreground=APP_COLORS["header"],
+        font=("Segoe UI", 10, "bold"),
+    )
+    style.configure("TEntry", fieldbackground="#ffffff", bordercolor=APP_COLORS["line"])
+    style.configure("TCombobox", fieldbackground="#ffffff", bordercolor=APP_COLORS["line"])
+    style.configure("TSpinbox", fieldbackground="#ffffff", bordercolor=APP_COLORS["line"])
+    style.configure(
+        "Toolbar.TButton",
+        background=APP_COLORS["header_soft"],
+        foreground=APP_COLORS["header_text"],
+        bordercolor=APP_COLORS["header_soft"],
+        focusthickness=0,
+        padding=(10, 6),
+    )
+    style.map(
+        "Toolbar.TButton",
+        background=[("active", "#2c5d78"), ("disabled", "#597386")],
+        foreground=[("disabled", "#c5d3dd")],
+    )
+    style.configure(
+        "Accent.TButton",
+        background=APP_COLORS["accent"],
+        foreground="#ffffff",
+        bordercolor=APP_COLORS["accent"],
+        focusthickness=0,
+        padding=(10, 6),
+    )
+    style.map(
+        "Accent.TButton",
+        background=[("active", APP_COLORS["accent_dark"]), ("disabled", "#8da8df")],
+        foreground=[("disabled", "#f8fbff")],
+    )
+    style.configure(
+        "Success.TButton",
+        background=APP_COLORS["success"],
+        foreground="#ffffff",
+        bordercolor=APP_COLORS["success"],
+        focusthickness=0,
+        padding=(10, 6),
+    )
+    style.map(
+        "Success.TButton",
+        background=[("active", "#166534"), ("disabled", "#89b89b")],
+        foreground=[("disabled", "#f8fbff")],
+    )
+    style.configure(
+        "Warning.TButton",
+        background=APP_COLORS["warning"],
+        foreground="#ffffff",
+        bordercolor=APP_COLORS["warning"],
+        focusthickness=0,
+        padding=(10, 6),
+    )
+    style.configure(
+        "Toolbar.TCheckbutton",
+        background=APP_COLORS["header"],
+        foreground=APP_COLORS["header_text"],
+    )
+    style.map(
+        "Toolbar.TCheckbutton",
+        background=[("active", APP_COLORS["header"])],
+        foreground=[("disabled", "#b8c8d3")],
+    )
+    style.configure(
+        "Results.Treeview",
+        background=APP_COLORS["surface"],
+        fieldbackground=APP_COLORS["surface"],
+        foreground=APP_COLORS["text"],
+        bordercolor=APP_COLORS["line"],
+        rowheight=28,
+    )
+    style.configure(
+        "Results.Treeview.Heading",
+        background="#eef4f8",
+        foreground=APP_COLORS["muted"],
+        font=("Segoe UI", 9, "bold"),
+    )
+    style.map(
+        "Results.Treeview",
+        background=[("selected", "#dbeafe")],
+        foreground=[("selected", APP_COLORS["text"])],
+    )
+
+
 def build_main_layout(app):
+    configure_app_theme(app.root)
     app.root.columnconfigure(0, weight=1)
     app.root.rowconfigure(1, weight=1)
 
-    toolbar = ttk.Frame(app.root, padding=(12, 12, 12, 6))
+    toolbar = ttk.Frame(app.root, padding=(12, 12, 12, 8), style="Toolbar.TFrame")
     toolbar.grid(row=0, column=0, sticky="ew")
     toolbar.columnconfigure(8, weight=1)
 
@@ -16,6 +161,7 @@ def build_main_layout(app):
         toolbar,
         text="Add PDF files",
         command=app.add_pdf_files,
+        style="Toolbar.TButton",
     )
     app.add_pdf_button.grid(row=0, column=0, padx=(0, 8))
 
@@ -23,6 +169,7 @@ def build_main_layout(app):
         toolbar,
         text="Add folder",
         command=app.add_folder,
+        style="Toolbar.TButton",
     )
     app.add_folder_button.grid(row=0, column=1, padx=(0, 8))
 
@@ -30,18 +177,34 @@ def build_main_layout(app):
         toolbar,
         text="Remove selected",
         command=app.remove_selected,
+        style="Toolbar.TButton",
     )
     app.remove_button.grid(row=0, column=2, padx=(0, 8))
 
-    app.clear_button = ttk.Button(toolbar, text="Clear all", command=app.clear_paths)
+    app.clear_button = ttk.Button(
+        toolbar,
+        text="Clear all",
+        command=app.clear_paths,
+        style="Toolbar.TButton",
+    )
     app.clear_button.grid(row=0, column=3, padx=(0, 16))
 
-    ttk.Checkbutton(toolbar, text="Include subfolders", variable=app.recursive).grid(
+    ttk.Checkbutton(
+        toolbar,
+        text="Include subfolders",
+        variable=app.recursive,
+        style="Toolbar.TCheckbutton",
+    ).grid(
         row=0,
         column=4,
         padx=(0, 12),
     )
-    ttk.Checkbutton(toolbar, text="Keep originals", variable=app.copy_files).grid(
+    ttk.Checkbutton(
+        toolbar,
+        text="Keep originals",
+        variable=app.copy_files,
+        style="Toolbar.TCheckbutton",
+    ).grid(
         row=0,
         column=5,
         padx=(0, 12),
@@ -51,6 +214,7 @@ def build_main_layout(app):
         toolbar,
         text="Preview changes",
         command=app.preview_files,
+        style="Accent.TButton",
     )
     app.preview_button.grid(row=0, column=6, padx=(0, 8))
 
@@ -58,6 +222,7 @@ def build_main_layout(app):
         toolbar,
         text="Apply changes",
         command=app.process_files,
+        style="Success.TButton",
     )
     app.process_button.grid(row=0, column=7, padx=(0, 8))
 
@@ -65,6 +230,7 @@ def build_main_layout(app):
         toolbar,
         text="Install missing packages",
         command=app.install_missing_packages,
+        style="Warning.TButton",
     )
     app.install_button.grid(row=0, column=9)
 
@@ -83,7 +249,7 @@ def build_main_layout(app):
         app.root,
         textvariable=app.status_text,
         anchor="w",
-        padding=(12, 6),
+        style="Status.TLabel",
     )
     status.grid(row=2, column=0, sticky="ew")
 
@@ -137,8 +303,9 @@ def build_left_panel_contents(app, left):
         bd=2,
         height=3,
         anchor="center",
-        background="#f7f7f7",
-        foreground="#333333",
+        background="#e9f5f8",
+        foreground=APP_COLORS["header"],
+        font=("Segoe UI", 10, "bold"),
     )
     app.drop_area.grid(row=1, column=0, sticky="ew", pady=(6, 0))
     app.register_drop_target(app.drop_area)
@@ -327,7 +494,12 @@ def build_results_panel(app, right):
     app.edit_button.grid(row=0, column=1, sticky="e")
 
     columns = ("source", "category", "keywords", "filename", "destination", "action")
-    app.results = ttk.Treeview(right, columns=columns, show="headings")
+    app.results = ttk.Treeview(
+        right,
+        columns=columns,
+        show="headings",
+        style="Results.Treeview",
+    )
     app.results.heading("source", text="Source")
     app.results.heading("category", text="Category")
     app.results.heading("keywords", text="Matched keywords")
@@ -343,6 +515,11 @@ def build_results_panel(app, right):
     app.results.grid(row=1, column=0, sticky="nsew", pady=(6, 0))
     app.results.bind("<<TreeviewSelect>>", lambda event: app.refresh_edit_button())
     app.results.bind("<Double-1>", app.edit_selected_record)
+    for category, color in CATEGORY_COLORS.items():
+        app.results.tag_configure(category_tag_name(category), foreground=color)
+    app.results.tag_configure("priority_high", foreground=APP_COLORS["danger"])
+    app.results.tag_configure("action_copied", foreground=APP_COLORS["success"])
+    app.results.tag_configure("action_moved", foreground=APP_COLORS["success"])
 
     scrollbar = ttk.Scrollbar(right, orient=tk.VERTICAL, command=app.results.yview)
     xscrollbar = ttk.Scrollbar(right, orient=tk.HORIZONTAL, command=app.results.xview)

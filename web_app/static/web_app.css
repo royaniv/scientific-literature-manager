@@ -1,14 +1,24 @@
 :root {
     color-scheme: light;
-    --bg: #f5f7f8;
+    --bg: #f6f9fb;
     --panel: #ffffff;
-    --ink: #1f2933;
-    --muted: #64707d;
-    --line: #d7dde3;
-    --accent: #2f6f73;
-    --accent-strong: #255a5d;
-    --warning: #9a4f12;
-    --danger: #a43d3d;
+    --ink: #1e293b;
+    --muted: #64748b;
+    --line: #d8e2ea;
+    --header: #15324a;
+    --header-soft: #244a63;
+    --accent: #2563eb;
+    --accent-strong: #1d4ed8;
+    --success: #15803d;
+    --warning: #b45309;
+    --danger: #dc2626;
+    --cat-micelles: #2563eb;
+    --cat-chiral: #7c3aed;
+    --cat-soup: #ea580c;
+    --cat-astro: #0369a1;
+    --cat-light: #b45309;
+    --cat-organbactr: #15803d;
+    --cat-general: #64748b;
 }
 
 * { box-sizing: border-box; }
@@ -17,13 +27,16 @@ body {
     margin: 0;
     font-family: "Segoe UI", Arial, sans-serif;
     color: var(--ink);
-    background: var(--bg);
+    background:
+        linear-gradient(180deg, #eaf3f8 0, var(--bg) 240px),
+        var(--bg);
 }
 
 header {
-    background: var(--panel);
-    border-bottom: 1px solid var(--line);
-    padding: 18px 28px;
+    background: var(--header);
+    border-bottom: 1px solid #0f2538;
+    color: #e6f2f7;
+    padding: 20px 28px;
 }
 
 h1 {
@@ -43,6 +56,7 @@ h2 {
     font-size: 18px;
     margin: 0 0 14px;
     letter-spacing: 0;
+    color: var(--header);
 }
 
 .layout {
@@ -62,6 +76,17 @@ h2 {
     border: 1px solid var(--line);
     border-radius: 8px;
     padding: 16px;
+    box-shadow: 0 10px 26px rgba(21, 50, 74, 0.07);
+    position: relative;
+    overflow: hidden;
+}
+
+.panel::before {
+    content: "";
+    display: block;
+    height: 4px;
+    margin: -16px -16px 14px;
+    background: linear-gradient(90deg, var(--accent), #14b8a6);
 }
 
 .rule-group {
@@ -100,8 +125,17 @@ textarea {
     padding: 8px 10px;
 }
 
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.13);
+    outline: none;
+}
+
 input[type="checkbox"] {
     width: auto;
+    accent-color: var(--accent);
 }
 
 textarea {
@@ -135,6 +169,7 @@ button,
     padding: 9px 14px;
     text-decoration: none;
     cursor: pointer;
+    box-shadow: 0 6px 14px rgba(37, 99, 235, 0.18);
 }
 
 button:hover,
@@ -143,13 +178,14 @@ button:hover,
 }
 
 .button.secondary {
-    background: #e9eef1;
+    background: #e9f0f5;
     color: var(--ink);
+    box-shadow: none;
 }
 
 .message {
-    border: 1px solid #e8bd8a;
-    background: #fff8ec;
+    border: 1px solid #f3c37d;
+    background: #fff8eb;
     color: var(--warning);
     border-radius: 6px;
     padding: 10px 12px;
@@ -183,6 +219,14 @@ th {
     letter-spacing: 0;
 }
 
+tbody tr {
+    background: var(--panel);
+}
+
+tbody tr:hover {
+    background: #f8fbfd;
+}
+
 td input {
     min-width: 170px;
 }
@@ -192,14 +236,53 @@ td input {
 }
 
 .muted {
-    color: var(--muted);
+    color: #b8c9d5;
     font-size: 13px;
+}
+
+main .muted {
+    color: var(--muted);
 }
 
 .path-preview {
     min-width: 240px;
     color: var(--muted);
     word-break: break-word;
+}
+
+.category-cell {
+    border-left: 4px solid var(--cat-general);
+}
+
+.category-row.category-Micelles .category-cell { border-left-color: var(--cat-micelles); }
+.category-row.category-Chiral .category-cell { border-left-color: var(--cat-chiral); }
+.category-row.category-Soup .category-cell { border-left-color: var(--cat-soup); }
+.category-row.category-Astro .category-cell { border-left-color: var(--cat-astro); }
+.category-row.category-Light .category-cell { border-left-color: var(--cat-light); }
+.category-row.category-OrganBactr .category-cell { border-left-color: var(--cat-organbactr); }
+.category-row.category-General .category-cell { border-left-color: var(--cat-general); }
+
+.status-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    border-radius: 999px;
+    padding: 2px 10px;
+    background: #eef4f8;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-copied,
+.status-moved {
+    background: #e8f7ee;
+    color: var(--success);
+}
+
+.status-preview {
+    background: #eaf1ff;
+    color: var(--accent);
 }
 
 @media (max-width: 850px) {

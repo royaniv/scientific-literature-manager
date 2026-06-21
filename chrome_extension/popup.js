@@ -72,6 +72,16 @@ const CATEGORIES = {
   }
 };
 
+const CATEGORY_COLORS = {
+  Micelles: "#2563eb",
+  Chiral: "#7c3aed",
+  Soup: "#ea580c",
+  Astro: "#0369a1",
+  Light: "#b45309",
+  OrganBactr: "#15803d",
+  General: "#64748b"
+};
+
 const DEFAULT_SETTINGS = {
   downloadSubfolder: "organized_papers",
   prefix: "CB",
@@ -91,6 +101,7 @@ const fields = {
   nextNumber: document.getElementById("nextNumber"),
   digits: document.getElementById("digits"),
   category: document.getElementById("category"),
+  categoryChip: document.getElementById("categoryChip"),
   useCategoryPrefix: document.getElementById("useCategoryPrefix"),
   downloadSubfolder: document.getElementById("downloadSubfolder"),
   saveAs: document.getElementById("saveAs"),
@@ -198,7 +209,15 @@ function fullDownloadPath(filename) {
 }
 
 function refreshFilename() {
+  refreshCategoryColor();
   fields.filename.value = buildFilename();
+}
+
+function refreshCategoryColor() {
+  const category = fields.category.value || "General";
+  const color = CATEGORY_COLORS[category] || CATEGORY_COLORS.General;
+  document.documentElement.style.setProperty("--category", color);
+  fields.categoryChip.textContent = category;
 }
 
 async function activeTab() {
@@ -285,6 +304,7 @@ async function loadMetadata() {
   fields.year.value = metadata.year || "";
   fields.author.value = metadata.author || "Unknown";
   fields.category.value = detectCategory(metadata);
+  refreshCategoryColor();
   refreshFilename();
 }
 
@@ -296,6 +316,7 @@ function populateCategories() {
     option.textContent = category;
     fields.category.appendChild(option);
   }
+  refreshCategoryColor();
 }
 
 async function loadSettings() {

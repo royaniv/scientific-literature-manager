@@ -32,9 +32,9 @@
                         </thead>
                         <tbody>
                             {% for record in records %}
-                                <tr>
+                                <tr class="category-row category-{{ record.category|replace(' ', '-') }}">
                                     <td>{{ record.source_path.name }}</td>
-                                    <td>
+                                    <td class="category-cell">
                                         <select name="category_{{ loop.index0 }}">
                                             {% for category in categories %}
                                                 <option value="{{ category }}" {% if category == record.category %}selected{% endif %}>{{ category }}</option>

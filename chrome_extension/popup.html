@@ -4,6 +4,16 @@
   <meta charset="utf-8">
   <title>Save Article PDF</title>
   <style>
+    :root {
+      --bg: #f6f9fb;
+      --surface: #ffffff;
+      --line: #d8e2ea;
+      --text: #1e293b;
+      --muted: #64748b;
+      --header: #15324a;
+      --accent: #2563eb;
+      --category: #64748b;
+    }
     * {
       box-sizing: border-box;
     }
@@ -11,8 +21,10 @@
       width: 380px;
       margin: 0;
       padding: 14px;
-      color: #1f2933;
-      background: #f5f7f8;
+      color: var(--text);
+      background:
+        linear-gradient(180deg, #dfeff6 0, var(--bg) 122px),
+        var(--bg);
       font-family: "Segoe UI", Arial, sans-serif;
       font-size: 14px;
     }
@@ -20,13 +32,15 @@
       margin: 0 0 12px;
       font-size: 18px;
       letter-spacing: 0;
+      color: var(--header);
     }
     .panel {
       padding: 12px;
       margin-bottom: 10px;
-      background: #fff;
-      border: 1px solid #d7dde3;
+      background: var(--surface);
+      border: 1px solid var(--line);
       border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(21, 50, 74, 0.08);
     }
     .field {
       display: grid;
@@ -39,7 +53,7 @@
       gap: 8px;
     }
     label {
-      color: #64707d;
+      color: var(--muted);
       font-size: 12px;
       font-weight: 700;
     }
@@ -49,10 +63,18 @@
       width: 100%;
       min-width: 0;
       padding: 7px 8px;
-      color: #1f2933;
-      border: 1px solid #cfd7de;
+      color: var(--text);
+      border: 1px solid var(--line);
       border-radius: 6px;
       font: inherit;
+      background: #fff;
+    }
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--category);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--category) 18%, transparent);
     }
     textarea {
       min-height: 58px;
@@ -66,30 +88,44 @@
     }
     .check input {
       width: auto;
+      accent-color: var(--category);
+    }
+    .category-chip {
+      display: inline-flex;
+      width: fit-content;
+      min-height: 24px;
+      align-items: center;
+      border-radius: 999px;
+      padding: 2px 10px;
+      background: var(--category);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
     }
     button {
       width: 100%;
       padding: 9px 12px;
       color: #fff;
-      background: #2f6f73;
+      background: var(--category);
       border: 0;
       border-radius: 6px;
       font-weight: 800;
       cursor: pointer;
+      box-shadow: 0 8px 18px color-mix(in srgb, var(--category) 24%, transparent);
     }
     button:disabled {
       background: #9aa7af;
       cursor: not-allowed;
     }
     .muted {
-      color: #64707d;
+      color: var(--muted);
       font-size: 12px;
       line-height: 1.35;
     }
     .status {
       min-height: 18px;
       margin-top: 8px;
-      color: #64707d;
+      color: var(--muted);
       font-size: 12px;
     }
   </style>
@@ -140,6 +176,7 @@
     <div class="field">
       <label for="category">Detected category</label>
       <select id="category"></select>
+      <div id="categoryChip" class="category-chip">General</div>
     </div>
     <div class="check">
       <input id="useCategoryPrefix" type="checkbox">
